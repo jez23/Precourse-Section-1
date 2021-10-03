@@ -3,14 +3,17 @@
 
 function modulo(a, b) {
   // return the remainder of the division a / b
+  return a % b;
 }
 
 function squareRoot(n) {
   // return the square root of n
+  return  Math.sqrt(n); 
 }
 
 function raiseToPower(m, n) {
   // return the result of raising m to the nth power
+  return Math.pow(m , n);
 }
 
 function formatMoney(amount) {
@@ -23,95 +26,131 @@ function formatMoney(amount) {
    * Amounts should always have 2 decimal numbers even if they are zeroes
    * formatMoney(1) => "£1.00"
    */
+  return `£${amount.toFixed(2)}`;
 }
 
 function calculateCircleArea(r) {
   // return the area of a circle with radius r
   // round result to 3 decimal numbers
+  return +(r * r * Math.PI).toFixed(3);
 }
 
 function calculateFullTurns(degrees) {
   // return the number of full turns you can make with the provided degrees
   // 1 full turn === 360 degrees
+  return Math.floor(degrees / 360);
 }
 
 function getLength(str) {
   // return the length of the passed string
+  return str.length;
 }
 
 function putNamesTogether(firstName, lastName) {
   // return the first and last names with a space between them
+  return `${firstName} ${lastName}`;
 }
 
 function capitaliseString(str) {
   // return the passed string with its first letter capitalised
+  return str.split("").map((letter, i) => i === 0? letter.toUpperCase() : letter).join("");
 }
 
 function dontShoutSentence(SENTENCE) {
   // return the passed sentence (IN ALL CAPS) in lower case
   // keep the first character capitalised
+  return SENTENCE.split("").map((letter, i) => i === 0? letter.toUpperCase() : letter.toLowerCase()).join("");
+
 }
 
 function getMiddle(str) {
   // return the middle (or middle two) character(s) of the passed string
+  return str.length % 2 === 0? `${str[str.length/2 - 1]}${str[(str.length/2)]}`: str[Math.floor(str.length/2)];
 }
 
 function getLastWord(words) {
   // return the last word of a sentence
   // you can assume words doesn't have a period at the end
+  const splitSentence = words.split(' ');
+  return splitSentence[splitSentence.length - 1];
 }
 
 function hyphenateWords(words) {
   // return the passed string with the spaces replaced by hyphens ("-")
+  return words.split(" ").join("-");
 }
 
 function convertToCamelCase(words) {
   // convert the passed string of space-separated words to camel case
   // camel case looks like this --> camelCaseLooksLikeThis
+ 
+  
+  return words.split(" ").map((word, i) => {
+    if(i !== 0){
+        const removeFirstLetter  = word.slice(1)
+        const firstLetterUpper = word[0].toUpperCase();
+        return `${firstLetterUpper}${removeFirstLetter}`;
+    } 
+    return word.toLowerCase();
+  }).join("");
+
 }
 
 function areValuesEqual(left, right) {
   // return true if the passed arguments are strictly equal
+  return left === right? true: false;
 }
 
 function areValuesNotEqual(left, right) {
   // return true if the passed arguments are NOT equal
+  return left !== right? true: false;
 }
 
 function isFromThe60s(year) {
   // return true if the year is in the 1960's
+ return year >= 1960 && year <= 1969? true: false; 
 }
 
 function isEvenLength(string) {
   // return true if string has an even length
+  return string.length % 2 == 0? true : false
 }
 
 function areStringsEqualCaseInsensitive(left, right) {
   // return true if the passed strings are equal ignoring case
+  return left.toLowerCase() === right.toLowerCase()? true: false;
 }
 
 function getEvenNumbers(nums) {
   //return an array of only the even numbers in the given array
+  return nums.filter(num => num % 2 === 0 ? true : false);
 }
 
 function getItemsLongerThan(array, len) {
   //return an array of only the items longer than the given length
+  return array.filter(word => word.length > len);
 }
 
 function getLastItems(array, n) {
   // return an array with the 'n' last items of 'array'
+  return array.slice(array.length - n);
 }
 
 function getSandwichFilling(sandwich) {
   // if an array is a sandwich, the first and last items are the bread, return an array with the filling of the sandwich
+  console.log(5555, sandwich)
+  return [ sandwich[Math.ceil(sandwich.length / 2) - 1]];
 }
 
 function removeItem(array, n) {
   // return a new array without the item on position 'n', effectively removing it from the array
+  return array.filter((item, i) => i !== n? true: false);
+
 }
 
 function mergeArrays(arr1, arr2) {
   // return a new array with all the elements of arr1 followed by all the elements of arr2
+  return [...arr1, arr2];
 }
 
 function flattenArrayByOne(arrayOfArrays) {
@@ -122,17 +161,21 @@ function flattenArrayByOne(arrayOfArrays) {
 
 function isItemOmnipresent(arrayOfArrays, item) {
   // return true if the passed item is present in all the arrays inside arrayOfArrays
+  return arrayOfArrays.includes(item)? true : false;
 }
 
 function isOver40(user) {
   /*
     This function takes a user object with a property of age. It should return true if the user is over 40 and false if the user is 40 or younger.
     */
+   return user.age > 40? true: false;
 }
 
 function getUserAge(user) {
   // return the user's age as a number.
   // you can assume that the passed user will always have a 'yearOfBirth' property.
+  const currentYear = new Date().getFullYear();
+  return currentYear - user.yearOfBirth;
 }
 
 function getUserPetAge(user) {
@@ -148,12 +191,19 @@ function getUserPetAge(user) {
       };
       This function should access the age property in the nested pet object and return the value
   */
+
+      return user.pet.age;
 }
 
 function createProduct() {
   /*
     This function should return an object with a type property and a price property. The value for type can be any string, and the value for price should be a number.
     */
+
+    return {
+      type: "socks",
+      price: 3.00
+    }
 }
 
 function addPriceToProduct(product, price) {
