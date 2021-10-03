@@ -138,8 +138,9 @@ function getLastItems(array, n) {
 
 function getSandwichFilling(sandwich) {
   // if an array is a sandwich, the first and last items are the bread, return an array with the filling of the sandwich
-  console.log(5555, sandwich)
-  return [ sandwich[Math.ceil(sandwich.length / 2) - 1]];
+  sandwich.pop();
+  sandwich.shift();
+  return sandwich;
 }
 
 function removeItem(array, n) {
@@ -150,18 +151,22 @@ function removeItem(array, n) {
 
 function mergeArrays(arr1, arr2) {
   // return a new array with all the elements of arr1 followed by all the elements of arr2
-  return [...arr1, arr2];
+  return [...arr1, ...arr2];
 }
 
 function flattenArrayByOne(arrayOfArrays) {
   // given a nested array or arrays, return a new array with one less level of nesting. All the elements of all the original nested arrays must be kept in their original order
   // for example:
   // [[1],[2],[[3,4]]] => [1,2,[3,4]]
+  return arrayOfArrays.flat(1);
 }
 
 function isItemOmnipresent(arrayOfArrays, item) {
   // return true if the passed item is present in all the arrays inside arrayOfArrays
-  return arrayOfArrays.includes(item)? true : false;
+  const checking =  arrayOfArrays.filter(array => {
+    return array.includes(item) ? true : false;
+  })
+  return checking.length === arrayOfArrays.length? true: false;
 }
 
 function isOver40(user) {
@@ -211,6 +216,9 @@ function addPriceToProduct(product, price) {
     { type: 'Tofu slices' }
     Add a price property to this object and set its value to the price passed in as an argument. Then return the object.
     */
+
+    product.price = price;
+    return product;
 }
 
 function getPropertyOfProduct(product, property) {
@@ -219,6 +227,8 @@ function getPropertyOfProduct(product, property) {
     Given a 'property' as an argument, return the value associated with that 'property'. 
     E.g. if asked for the price 'property' of the above satsumas object, your function would return '£1.09'.
   */
+ return product[property];
+
 }
 
 function addPropertyToProduct(product, property, value) {
@@ -228,6 +238,9 @@ function addPropertyToProduct(product, property, value) {
     E.g. if given the 'property' 'length' and the value '2h 36m' (yes it really is that long) 
     your function should return { type: 'Terminator 2: Judgement Day', price: '£6.99', quantity: 1, length: '2h 36m' }
   */
+    product[property] = value;
+    return product;
+
 }
 
 function createNorthcoder(name, yearOfBirth) {
@@ -235,6 +248,12 @@ function createNorthcoder(name, yearOfBirth) {
   // a name property set to the value of the name parameter
   // an age property set to whatever the age of the northcoder would be in the year 2019
   // a language property set to 'JavaScript'
+
+  return {
+    name: name,
+    age: 2019 - yearOfBirth,
+    language: 'JavaScript'
+  }
 }
 
 function updateVoterAddress(voter, correctHouseNumber) {
@@ -250,6 +269,8 @@ function updateVoterAddress(voter, correctHouseNumber) {
     };
     Note - The function does NOT need to return anything.
   */
+
+    voter.address.houseNumber = correctHouseNumber;
 }
 
 function createUserString(userObj) {
@@ -257,17 +278,24 @@ function createUserString(userObj) {
   // returns a string with the user's details in the form:
   // 'name: Mitch, age: 27, language: Javascript';
   // Note - this is a good use case of string template literals.
+  return `name: ${userObj.name}, age: ${userObj.age}, language: ${userObj.language}`
 }
 
 function getNorthcodersNames(northcoders) {
   // should take an array of objects with the format from createNorthcoder
   // returns an array of the users' names as strings
+      return northcoders.reduce((acc, cur) => {
+        const name = cur.name;
+        acc = [...acc, name];
+        return acc;
+      }, []);
 }
 
 function getAlbumProperties(obj) {
   // should take an object with information about an album
   // should return an array containing all of the object's keys
   // E.g. {a: 'foo', b: 'car', c: 'bar'} should return ['a', 'b', 'c']
+  return Object.keys(obj);
 }
 
 function deleteManyPasswords(users) {
@@ -286,6 +314,12 @@ function deleteManyPasswords(users) {
       {name: 'Kavita'}
     ]
     */
+
+    users.forEach(obj => {
+      delete  obj.password;
+    })
+
+    return users;
 }
 
 function countTheObjects(arr) {
@@ -293,6 +327,13 @@ function countTheObjects(arr) {
     This function takes an array of different data types. It should return a count of the number of objects in the array.
     NB, think carefully about how to test if something is an object! Arrays are technically types of objects in JavaScript, as is the value null. However these should not be counted.
     */
+    let numberOfObjects = 0;
+    arr.forEach(item => {
+      if(typeof item === 'object' && Array.isArray(item) === false && item != null){
+        numberOfObjects += 1;
+      }
+    })
+    return numberOfObjects;
 }
 
 module.exports = {
